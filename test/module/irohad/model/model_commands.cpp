@@ -15,9 +15,11 @@
  * limitations under the License.
  */
 
+#include <commands.pb.h>
 #include <gtest/gtest.h>
 #include <model/commands/add_asset_quantity.hpp>
-#include <commands.pb.h>
+#include <model/commands/add_peer.hpp>
+#include <crypto/crypto.hpp>
 
 using namespace iroha;
 
@@ -33,4 +35,20 @@ TEST(MODEL_COMMANDS, add_asset_quantity_when_convert_from_proto_to_model) {
   ASSERT_EQ(add_asset_quantity.get_account_id(), "1");
   ASSERT_EQ(add_asset_quantity.get_asset_id(), "2");
   ASSERT_EQ(add_asset_quantity.get_amount(), "100");
+}
+
+TEST(MODEL_COMMANDS, add_peer_when_convert_from_proto_to_model) {
+  protocol::Command command;
+  auto proto_add_peer = command.add_peer();
+  proto_add_peer.set_address("Innopolis");
+
+  auto seed = iroha::create_seed();
+  auto keypair = iroha::create_keypair(seed);
+  auto pub_key = keypair.pubkey.to_string();
+  proto_add_peer.set_pub_key(pub_key);
+
+  model::AddPeer add_peer(proto_add_peer);
+
+  ASSERT_EQ(add_peer.get_peer().address, "Innopolis");
+  ASSERT_EQ(add_peer.get_peer().pubkey, keypair.pubkey);
 }

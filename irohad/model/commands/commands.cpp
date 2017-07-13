@@ -16,14 +16,12 @@
  */
 
 #include <model/commands/add_asset_quantity.hpp>
+#include <model/commands/add_peer.hpp>
 
 namespace iroha {
   namespace model {
 
-    /*
-     * AddAssetQuantity
-     */
-
+    /* AddAssetQuantity */
     AddAssetQuantity::AddAssetQuantity(
         protocol::AddAssetQuantity proto_add_asset_quantity) {
       account_id = proto_add_asset_quantity.account_id();
@@ -47,5 +45,25 @@ namespace iroha {
       return true;
     }
 
+    /* AddPeer */
+
+    AddPeer::AddPeer(protocol::AddPeer &proto_add_peer) {
+      auto res = base64_decode(proto_add_peer.pub_key());
+      std::copy(proto_add_peer.pub_key().begin(),
+                proto_add_peer.pub_key().end(), peer.pubkey.data());
+      peer.address = proto_add_peer.address();
+    }
+
+    Peer AddPeer::get_peer() { return peer; }
+
+    bool AddPeer::validate(ametsuchi::WsvQuery &queries,
+                           const Account &creator) {
+      return true;
+    }
+
+    bool AddPeer::execute(ametsuchi::WsvQuery &queries,
+                          ametsuchi::WsvCommand &commands) {
+      return true;
+    }
   }
 }

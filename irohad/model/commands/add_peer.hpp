@@ -18,6 +18,7 @@
 #ifndef IROHA_ADD_PEER_HPP
 #define IROHA_ADD_PEER_HPP
 
+#include <commands.pb.h>
 #include <model/command.hpp>
 #include <model/peer.hpp>
 
@@ -27,16 +28,22 @@ namespace iroha {
     /**
      * Provide user's intent for adding peer to current network
      */
-    struct AddPeer : public Command {
-      /**
-       * Peer for adding
-       */
-      Peer peer;
+    class AddPeer : public Command {
+     public:
+      explicit AddPeer(protocol::AddPeer& proto_add_peer);
+
+      Peer get_peer();
 
       bool validate(ametsuchi::WsvQuery& queries,
                     const Account& creator) override;
       bool execute(ametsuchi::WsvQuery& queries,
                    ametsuchi::WsvCommand& commands) override;
+
+     private:
+      /**
+       * Peer for adding
+       */
+      Peer peer;
     };
   }  // namespace model
 }  // namespace iroha
