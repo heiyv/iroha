@@ -20,6 +20,7 @@
 
 #include <model/command.hpp>
 #include <string>
+#include <commands.pb.h>
 
 namespace iroha {
   namespace model {
@@ -27,7 +28,21 @@ namespace iroha {
     /**
      * Add amount of asset to an account
      */
-    struct AddAssetQuantity : public Command {
+    class AddAssetQuantity : public Command {
+     public:
+
+      explicit AddAssetQuantity(protocol::AddAssetQuantity proto_add_asset_quantity);
+
+      bool validate(ametsuchi::WsvQuery& queries,
+                    const Account& creator) override;
+      bool execute(ametsuchi::WsvQuery& queries,
+                   ametsuchi::WsvCommand& commands) override;
+
+      std::string get_account_id();
+      std::string get_asset_id();
+      std::string get_amount();
+
+     private:
       /**
        * Account where to add assets
        */
@@ -43,11 +58,6 @@ namespace iroha {
        * Amount to add to wallet
        */
       std::string amount;
-
-      bool validate(ametsuchi::WsvQuery& queries,
-                    const Account& creator) override;
-      bool execute(ametsuchi::WsvQuery& queries,
-                   ametsuchi::WsvCommand& commands) override;
     };
   }  // namespace model
 }  // namespace iroha
