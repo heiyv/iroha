@@ -44,6 +44,7 @@ TEST(GRPC, ConsensusStubsConnection) {
     server->Wait();
   }).detach();
 
+  // TODO: Use std::condition_variable? by motxx
   std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
   iroha::ConsensusClient client("0.0.0.0", 65530);
@@ -52,7 +53,9 @@ TEST(GRPC, ConsensusStubsConnection) {
   client.SendProposal(&proposal);
 
   // non-blocking
-  loop->run<uvw::Loop::Mode::ONCE>();
+  ASSERT_TRUE(loop->run<uvw::Loop::Mode::ONCE>());
+
+  std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
   ASSERT_TRUE(proposal_received);
 }

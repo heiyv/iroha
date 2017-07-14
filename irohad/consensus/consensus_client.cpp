@@ -27,6 +27,8 @@ namespace iroha {
     grpc::Status status;
     Ack ack;
 
+    std::cout << "Client::SendProposal\n";
+
     status = stub_->SendProposal(&context, *proposal, &ack);
 
     if (status.ok()) {
@@ -34,6 +36,7 @@ namespace iroha {
     } else {
       console->error("SendProposal RPC failed. details={}, message={}",
                      status.error_details(), status.error_message());
+
       throw std::system_error();  // TODO: we need good exception design
     }
   }
