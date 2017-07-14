@@ -14,14 +14,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#include <uvw.hpp>
+//#include <uvw.hpp>
 #include <string>
 
 int main(int argc, char *argv[]) {
-  auto loop = uvw::Loop::getDefault();
-
-
-  loop->run();
+//  auto loop = uvw::Loop::getDefault();
+//  loop->run();
 
   return 0;
 }

@@ -13,7 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-
+/*
 #include <gtest/gtest.h>
 #include <consensus/connection/service.hpp>
 #include <consensus/connection/client.hpp>
@@ -52,11 +52,13 @@ class ConsensusConnectionTest : public ::testing::Test {
   std::unique_ptr<IServerRunner> serverRunner_;
   std::thread serverThread_;
 };
+*/
 
 /**
  * Note: Async connection is WIP.
  *       Temporarily, we tests sync connection.
  */
+/*
 TEST_F(ConsensusConnectionTest, FailConnectionWhenNotStandingServer) {
   Block block;
   auto response = conn::sendBlock(block, "0.0.0.0");
@@ -69,3 +71,4 @@ TEST_F(ConsensusConnectionTest, SuccessConnectionWhenStandingServer) {
   auto response = conn::sendBlock(block, "0.0.0.0");
   ASSERT_EQ(response.code(), iroha::protocol::ResponseCode::OK);
 }
+*/

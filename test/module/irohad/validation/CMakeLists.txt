@@ -8,4 +8,5 @@ target_link_libraries(stateless_transaction_validator_test
         model
         hash
         crypto
+        consensus_grpc
         )
