@@ -17,28 +17,28 @@
 
 #include "consensus_service.hpp"
 iroha::Status iroha::ConsensusService::SendProposal(iroha::ServerContext *context,
-                                                    iroha::Proposal *request,
+                                                    const iroha::Proposal *request,
                                                     iroha::Ack *reply) {
   publish(request);
   reply->set_type(Ack::PROPOSAL_RECEIVED);
   return iroha::Status::OK;
 }
 iroha::Status iroha::ConsensusService::SendVote(iroha::ServerContext *context,
-                                                iroha::Vote *request,
+                                                const iroha::Vote *request,
                                                 iroha::Ack *reply) {
   publish(request);
   reply->set_type(Ack::VOTE_RECEIVED);
   return iroha::Status::OK;
 }
 iroha::Status iroha::ConsensusService::SendCommit(iroha::ServerContext *context,
-                                                  iroha::Commit *request,
+                                                  const iroha::Commit *request,
                                                   iroha::Ack *reply) {
   publish(request);
   reply->set_type(Ack::COMMIT_RECEIVED);
   return iroha::Status::OK;
 }
 iroha::Status iroha::ConsensusService::SendAbort(iroha::ServerContext *context,
-                                                 iroha::Abort *request,
+                                                 const iroha::Abort *request,
                                                  iroha::Ack *reply) {
   publish(request);
   reply->set_type(Ack::ABORT_RECEIVED);
